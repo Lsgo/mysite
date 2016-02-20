@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block title %}
+{{ article.title }}
+{% endblock title %}
+
+
+{% block content %}
+
+
+<style type="text/css">
+body {
+    background: url(/static/images/bgh4.gif) top left repeat
+}
+#title{width:80%; margin: 0 auto 15px auto;   }
+#main{width:80%; margin: 0 auto; color:#ffffcc; }
+#main img {width:100%; margin: 0 auto;
+</style>
+
+
+
+<h1 id = "title">文章标题： {{ article.title }}</h1>
+<div id="main">
+    {{ article.content|safe }}
+</div>
+{% endblock content %}

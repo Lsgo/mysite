@@ -1,0 +1,135 @@
+{% extends "base.html" %}
+
+{% block title %}
+{{ column.name }}
+{% endblock title %}
+
+
+{% block content %}
+
+
+
+<style type="text/css">
+body {
+    background: url(/static/images/bg6.jpg) top left repeat
+    /*background-color: #CCCCCC;*/
+}
+.relationNews{width:80%;font-size:16px; font-weight:bold; margin: 0 auto;  }
+.relationNewsList {
+    /*font-size:14px;*/
+    border-top: 1px solid #000000;
+    margin: 0 auto;
+    padding: 3px 5px 0 5px;
+    width:80%;
+    height: 200px;
+}
+.relationNewsList ul {
+    margin: 0 auto;
+    padding: 0;
+}
+.relationNewsList li {
+    border-bottom: #DDDDDD 1px solid;
+    float: right;
+    padding: 5px 0px 0px 10px;
+    width: 100%;
+    background: url(li.gif) no-repeat 0px 10px;
+    height: 30px;
+    overflow: hidden;
+}
+
+.pagination {
+    /*font-size:14px;*/
+    width:80%;
+    /*padding: 3px 5px 0px 5px;*/
+    font-weight:bold;
+    margin: 0 12%;
+
+}
+.pagination ul {
+    margin: 0 auto;
+    padding: 0;
+    width:100%;
+    float:right;
+
+}
+.pagination li {
+    float: left;
+    width: 50px;
+    list-style:none;
+}
+    /*#banner{width:100%; float:right;  margin: 0 auto; }*/
+    /*#banner li{float:left; text-align:right; width:50px ;list-style:none; margin: 0 auto; }*/
+
+
+    .relationNewsList a:link {color: #000000} /* 未访问的链接 */
+    .relationNewsList a:visited {color: #CC9933} /* 已访问的链接 */
+    .relationNewsList a:hover {color: #FFCC33}   /* 当有鼠标悬停在链接上 */
+    .relationNewsList  /*a:active {color: #d90a81}  被选择的链接 */
+
+    .pagination a:link {color: #000000} /* 未访问的链接 */
+    .pagination a:visited {color: #CC9933} /* 已访问的链接 */
+    .pagination a:hover {color: #FFCC33}   /* 当有鼠标悬停在链接上 */
+    .pagination  /*a:active {color: #d90a81}  被选择的链接 */
+
+
+</style>
+
+
+
+<div class="relationNews">栏目名称：{{ column.name }}</div>
+<div class=" relationNewsList ">
+    <!--栏目简介：{{ column.intro }}-->
+    <p>栏目文章列表：</p>
+    <!--<ul>-->
+    <!--    {% for article in column.article_set.all %}-->
+    <!--        <li>-->
+    <!--            <a href="{{ article.get_absolute_url }}">{{ article.title }}</a>-->
+    <!--        </li>-->
+    <!--    {% endfor %}-->
+    <!--</ul>-->
+
+
+    <ul>
+        {% if objects.object_list %}
+            {% for article in objects.object_list  %}
+                <li>
+                    <a href="{{ article.get_absolute_url }}" >{{ article.title }}</a>
+                </li>
+            {% endfor %}
+        {% endif %}
+    </ul>
+</div>
+
+
+
+<div class="pagination">
+  <ul>
+    <li style = "width:100px" ><a href="?page=1">首页</a></li>
+    {% if objects.has_previous %}
+    <li><a href="?page={{ objects.previous_page_number }}">上页</a></li>
+    {% else %}
+    <li  class="active"><a>上页</a></li>
+    {% endif %}
+
+    {% for p in page_range %}
+      {% ifequal p objects.number %}
+      <li class="active"><a>{{p}}</a></li>
+      {% else %}
+      <li  ><a href="?page={{p}}" title="第{{p}}页">{{p}}</a><li>
+      {% endifequal %}
+    {% endfor %}
+
+    {% if objects.has_next %}
+    <li ><a href="?page={{ objects.next_page_number }}">下页</a></li>
+    {% else %}
+    <li  class="active"> <a>下页</a></li>
+    {% endif %}
+    <li ><a href="?page={{ total }}">末页</a></li>
+    <li style = "width:100px" > 当前页码： {{ objects.number }}</li>
+    <li style = "width:100px" > 共有 {{ total }} 页 </li>
+
+  </ul>
+</div>
+
+
+{% endblock content %}

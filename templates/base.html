@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,Chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}VISIT AN HOUR EVERY DAY , SEX LIFE 50 YEARS {% endblock title %} - Remex</title>
+
+    <!-- Bootstrap -->
+    <link href="/static/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- 引入下面两个库让 IE8 支持 HTML5 元素 -->
+    <!-- 警告: Respond.js 通过 file:// 浏览的时候不能正常工作！-->
+    <!--[if lt IE 9]>
+      <script src="http://apps.bdimg.com/libs/html5shiv/3.7/html5shiv.min.js"></script>
+      <script src="http://apps.bdimg.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <style type="text/css">
+    body {
+        padding-top: 60px;
+    }
+    </style>
+    {% block css %}
+
+    {% endblock css %}
+
+    {% block js %}
+
+    {% endblock js %}
+  </head>
+  <body>
+    <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+      <div class="navbar-header">
+         <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+         <span class="sr-only">Toggle navigation</span>
+         <span class="icon-bar"></span>
+         <span class="icon-bar"></span>
+         <span class="icon-bar"></span>
+         </button>
+         <span class="navbar-brand"><a href="/">H I M G</a></span>
+
+      </div>
+
+      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+
+        <ul class="nav navbar-nav">
+          {% for column in nav_display_columns %}
+              <li><a href="{{ column.get_absolute_url }}">{{ column.name }}</a></li>
+          {% endfor %}
+        </ul>
+
+         <a class="navbar-brand1" href="/logout">退出</a>
+         <span class="navbar-brand1">welcome {{username}} !</span>
+    </div>
+
+    </nav>
+
+    <div class="row clearfix">
+        <div class="col-md-12">
+            {% block content %}
+                <h1>Himg 资讯网</h1>
+            {% endblock content %}
+        </div>
+    </div>
+
+    <div class="row clearfix" style="padding-top: 20px;">
+      <div class="col-md-12">
+       <div class="well well-sm">
+        <div style="text-align:center;">
+         <a href="/declaration">免责声明</a> |
+         <a href="/aboutus">关于我们</a>
+        </div>
+        <div>
+         HIMG目前为非盈利站点，提供的内容来自互联网，我们不能保证内容一定让你感觉开心。通过使用本站进行学习随之而来的风险与本站无关。当使用本站时，代表您已接受了本站的使用条款和隐私条款。 版权所有，保留一切权利。HIMG的所有内容仅供测试，是以学习知识和分享知识为目的，对任何法律问题及风险不承担任何责任。
+        </div>
+        <div style="padding-top:10px; text-align: center">
+          HIMG是用<a href="https://www.djangoproject.com/" target="_blank" rel="nofollow"> Django </a>技术开发的站点，托管在<a href="https://portal.budgetvm.com/" target="_blank" rel="nofollow">BUDGETVM</a>服务器<br>
+
+          Copyright &copy; 2015 Powered by HIMG All Rights Reserved.
+         <a href="http://www.miitbeian.gov.cn/" rel="nofollow" target="_blank">Himg 没有备案。你看着办！！</a>
+        </div>
+       </div>
+      </div>
+    </div>
+
+    <script src="http://apps.bdimg.com/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="http://apps.bdimg.com/libs/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+    {% include "baidutongji.html" %}
+  </body>
+</html>

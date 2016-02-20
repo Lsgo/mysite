@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block title %} REGIST PAGE {% endblock title %}
+
+
+{% block content %}
+<div class="row clearfix" style="margin-left: auto; margin-right: auto; ">
+<h3>注册页面：</h3>
+<form method = 'post' enctype="multipart/form-data">
+    {% csrf_token %}
+    {{uf.as_p}}
+    <input type="submit" value = "ok" />
+</form>
+<br>
+<a href="/login">登陆</a>
+</div>
+{% endblock content %}
