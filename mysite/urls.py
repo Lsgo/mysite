@@ -27,7 +27,7 @@ urlpatterns = [
     url(r'^himg/declaration$', 'himg.views.declaration', name='hdeclaration'),
     url(r'^himg/aboutus$', 'himg.views.aboutus', name='haboutus'),
     #---------------------------------------------------------------------
-    url(r'^$', 'news.views.index', name='index'),
+    url(r'^news$', 'news.views.news_page', name='news_page'),
 
     url(r'^login$', 'news.views.login_view', name='login'),
     url(r'^logout$', 'news.views.logout_view', name='logout'),
@@ -40,6 +40,11 @@ urlpatterns = [
     url(r'^aboutus$', 'news.views.aboutus', name='aboutus'),
     #---------------------------------------------------------------------
     url(r'^admin/', include(admin.site.urls)),
+    url(r'^$', 'news.views.index', name='index'),
+    url(r'^cloud9$', 'news.views.cloud9', name='cloud9'),
+    url(r'^pyspider$', 'news.views.pyspider', name='pyspider'),
+    url(r'^contact$', 'news.views.contact', name='contact'),
+
 ]
 # use Django server /media/ files
 from django.conf import settings

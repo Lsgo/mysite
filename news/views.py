@@ -86,7 +86,7 @@ def login_view(request):
 
                 login(request, user)
                 #比较成功，跳转index
-                response = HttpResponseRedirect('/')
+                response = HttpResponseRedirect('/news')
                 #将username写入浏览器cookie,失效时间为3600
                 response.set_cookie('username',username,3600)
                 request.session['member_id'] = m.id
@@ -109,23 +109,28 @@ def logout_view(request):
     return HttpResponseRedirect('/login')
 
 
-def index(request):
+def news_page(request):
     print (request.session.get('member_id'))
-    print ('index username ', request.COOKIES.get('username',''))
+    print ('news username ', request.COOKIES.get('username',''))
     print ('is_authenticated', request.user.is_authenticated())
     if request.user.is_authenticated():
-        print ('go to index')
+        print ('go to news')
         home_display_columns = Column.objects.filter(home_display=True)
         nav_display_columns = Column.objects.filter(nav_display=True)
 
 
-        return render(request, 'index.html', {
+        return render(request, 'news.html', {
             'home_display_columns': home_display_columns,
             'nav_display_columns': nav_display_columns,
             'username':request.user.username
         })
-    print ('go to login from index')
+    print ('go to login from news')
     return HttpResponseRedirect('/login')
+
+
+def index(request):
+    return render(request, 'index.html')
+
 
 def column_detail(request, column_slug):
     if request.user.is_authenticated():
@@ -179,3 +184,12 @@ def aboutus(request):
             'nav_display_columns': nav_display_columns,
             'username':request.user.username
         })
+
+def contact(request):
+    return render(request, 'contact.html')
+
+def cloud9(request):
+    return HttpResponseRedirect('http://211.149.199.241:8181/ide.html')
+
+def pyspider(request):
+    return HttpResponseRedirect('http://211.149.199.241:5000/')

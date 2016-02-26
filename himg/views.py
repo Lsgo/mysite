@@ -119,7 +119,7 @@ def index(request):
         nav_display_columns = Column.objects.filter(nav_display=True)
         
         
-        return render(request, 'index.html', {
+        return render(request, 'news.html', {
             'home_display_columns': home_display_columns,
             'nav_display_columns': nav_display_columns,
             'username':request.user.username
@@ -135,7 +135,15 @@ def column_detail(request, column_slug):
         
         objects, page_range, total = my_pagination(request, all_objects)
        
-        return render(request, 'himg/column.html', {'column': column, 'objects':objects,'page_range':page_range, 'total': total})
+        return render(request, 'himg/column.html', {
+            'column': column, 
+            'objects':objects,
+            'page_range':page_range,
+            'total': total,
+            'home_display_columns': home_display_columns,
+            'nav_display_columns': nav_display_columns,
+            'username':request.user.username,
+            })
     return HttpResponseRedirect('/login')   
 
 def article_detail(request, pk, article_slug):
