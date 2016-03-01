@@ -24,7 +24,7 @@ def my_pagination(request, queryset, display_amount=20, after_range_num = 5,bevo
     try:
         #尝试获得分页列表
         objects = paginator.page(page)
-        total = paginator.num_pages 
+        total = paginator.num_pages
     #如果页数不存在
     except EmptyPage:
         #获得最后一页
@@ -38,17 +38,17 @@ def my_pagination(request, queryset, display_amount=20, after_range_num = 5,bevo
         page_range = paginator.page_range[page-after_range_num:page+bevor_range_num]
     else:
         page_range = paginator.page_range[0:page+bevor_range_num]
-    
+
     return objects,page_range,total
 
 
 
-class UserLoginForm(forms.Form): 
+class UserLoginForm(forms.Form):
     username = forms.CharField(label='Username',max_length=100)
     password = forms.CharField(label='Password',widget=forms.PasswordInput())
 
-    
-class UserRegistForm(forms.Form): 
+
+class UserRegistForm(forms.Form):
     username = forms.CharField(label='Username',max_length=100)
     password = forms.CharField(label='Password',widget=forms.PasswordInput())
     checkpwd = forms.CharField(label='checkpwd',widget=forms.PasswordInput())
@@ -62,7 +62,7 @@ def regist(request):
             username = uf.cleaned_data['username']
             password = uf.cleaned_data['password']
             checkpwd = uf.cleaned_data['checkpwd']
-            
+
             if password == checkpwd:
             #添加到数据库
                 User.objects.create(username= username,password=password)
@@ -83,7 +83,7 @@ def login_view(request):
         if user is not None:
             if user.is_active:
                 m = User.objects.get(username=username )
-                
+
                 login(request, user)
                 #比较成功，跳转index
                 response = HttpResponseRedirect('/')
@@ -107,7 +107,7 @@ def logout_view(request):
     #清理cookie里保存username
     response.delete_cookie('username')
     return HttpResponseRedirect('/login')
-    
+
 
 def index(request):
     print (request.session.get('member_id'))
@@ -117,26 +117,27 @@ def index(request):
         print ('go to index')
         home_display_columns = Column.objects.filter(home_display=True)
         nav_display_columns = Column.objects.filter(nav_display=True)
-        
-        
+
+
         return render(request, 'news.html', {
             'home_display_columns': home_display_columns,
             'nav_display_columns': nav_display_columns,
             'username':request.user.username
         })
     print ('go to login from index')
-    return HttpResponseRedirect('/login')   
-    
+    return HttpResponseRedirect('/login')
+
 def column_detail(request, column_slug):
     if request.user.is_authenticated():
         column = Column.objects.get(slug=column_slug)
-        
+
         all_objects = column.article_set.all()
-        
+        home_display_columns = Column.objects.filter(home_display=True)
+        nav_display_columns = Column.objects.filter(nav_display=True)
         objects, page_range, total = my_pagination(request, all_objects)
-       
+
         return render(request, 'himg/column.html', {
-            'column': column, 
+            'column': column,
             'objects':objects,
             'page_range':page_range,
             'total': total,
@@ -144,18 +145,18 @@ def column_detail(request, column_slug):
             'nav_display_columns': nav_display_columns,
             'username':request.user.username,
             })
-    return HttpResponseRedirect('/login')   
+    return HttpResponseRedirect('/login')
 
 def article_detail(request, pk, article_slug):
     if request.user.is_authenticated():
         article = Article.objects.get(pk=pk)
-    
+
         if article_slug != article.slug:
             return redirect(article, permanent=True)
-    
+
         return render(request, 'himg/article.html', {'article': article})
-    return HttpResponseRedirect('/login')   
-    
+    return HttpResponseRedirect('/login')
+
 
 def declaration(request):
     # return HttpResponseRedirect('/disclaimer.html')
