@@ -34,7 +34,7 @@ class Article(models.Model):
     title = models.CharField('标题', max_length=256)
     slug = models.CharField('网址', max_length=256, db_index=True)
 
-    author = models.ForeignKey('auth.User', blank=True, null=True, verbose_name='作者')
+    author = models.ForeignKey('auth.User', blank=True, null=True, related_name='workorder_auditor',verbose_name='作者')
     content = models.TextField('内容', default='', blank=True)
     content = UEditorField('内容', height=300, width=1000,
         default=u'', blank=True, imagePath="uploads/images/",

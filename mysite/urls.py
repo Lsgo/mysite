@@ -35,7 +35,7 @@ urlpatterns = [
 
     url(r'^column/(?P<column_slug>[^/]+)/$', 'news.views.column_detail', name='column'),
     url(r'^news/(?P<pk>\d+)/(?P<article_slug>[^/]+)/$', 'news.views.article_detail', name='article'),
-    url(r'^info$', 'news.views.cusInfo', name='cusInfo'),
+    url(r'^info', 'news.views.cusInfo', name='cusInfo'),
     url(r'^declaration$', 'news.views.declaration', name='declaration'),
     url(r'^aboutus$', 'news.views.aboutus', name='aboutus'),
     #---------------------------------------------------------------------
@@ -44,6 +44,17 @@ urlpatterns = [
     url(r'^cloud9$', 'news.views.cloud9', name='cloud9'),
     url(r'^pyspider$', 'news.views.pyspider', name='pyspider'),
     url(r'^contact$', 'news.views.contact', name='contact'),
+    url(r'^aboutus$', 'news.views.aboutus', name='aboutme'),
+    #-----------------------Other test -------------------------------------
+    url(r'^ajax_list/$', 'tools.views.ajax_list', name='ajax-list'),
+    url(r'^ajax_dict/$', 'tools.views.ajax_dict', name='ajax-dict'),
+    url(r'^upc/$',        'tools.views.upc', name='upc'),
+    url(r'^wish/$',        'tools.views.wish', name='wish'),
+    url(r'^createCode/$', 'tools.views.createCode', name='createCode'),
+    url(r'^send_file/$', 'tools.views.send_file', name='send_file'),
+    url(r'^send_zipfile/$', 'tools.views.send_zipfile', name='send_zipfile'),
+    url(r'^wishexecl/$', 'tools.views.wishexecl', name='wishexecl'), 
+    url(r'^test/$', 'tools.views.test', name='test'), 
 
 ]
 # use Django server /media/ files

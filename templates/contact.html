@@ -96,7 +96,7 @@
                 <em class="inactive-menu"></em> -->
             </div>
             <div class="navigation-item">
-                <a href="contact.html" class="contact-icon">Contact</a>
+                <a href="/contact" class="contact-icon">Contact</a>
                 <em class="active-menu"></em>
             </div>
         </div>
@@ -136,7 +136,8 @@
                     </div>
                 </div>
 
-                <form action="php/contact.php" method="post" class="contactForm" id="contactForm">
+                <form method="post" class="contactForm" id="contactForm">
+                    {% csrf_token %}
                     <fieldset>
                         <div class="formValidationError" id="contactNameFieldError">
                             <div class="static-notification-red tap-dismiss-notification">

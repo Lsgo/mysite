@@ -10,6 +10,22 @@ from django.template import RequestContext
 from django.contrib.auth import authenticate, login, logout
 from django.core.paginator import Paginator
 from ipware.ip import get_ip
+from django.core.mail import send_mail
+
+class emainForm(forms.Form):
+    contactNameField = forms.CharField()
+    contactEmailField = forms.EmailField()
+    contactMessageTextarea = forms.CharField()
+
+class UserLoginForm(forms.Form):
+    username = forms.CharField(label='Username',max_length=100)
+    password = forms.CharField(label='Password',widget=forms.PasswordInput(), error_messages={'required':u'password is null'})
+
+
+class UserRegistForm(forms.Form):
+    username = forms.CharField(label='Username',max_length=100)
+    password = forms.CharField(label='Password',widget=forms.PasswordInput())
+    checkpwd = forms.CharField(label='checkpwd',widget=forms.PasswordInput())
 
 
 def my_pagination(request, queryset, display_amount=30, after_range_num = 5,bevor_range_num = 4):
@@ -43,15 +59,6 @@ def my_pagination(request, queryset, display_amount=30, after_range_num = 5,bevo
 
 
 
-class UserLoginForm(forms.Form):
-    username = forms.CharField(label='Username',max_length=100)
-    password = forms.CharField(label='Password',widget=forms.PasswordInput(), error_messages={'required':u'password is null'})
-
-
-class UserRegistForm(forms.Form):
-    username = forms.CharField(label='Username',max_length=100)
-    password = forms.CharField(label='Password',widget=forms.PasswordInput())
-    checkpwd = forms.CharField(label='checkpwd',widget=forms.PasswordInput())
 
 #注册
 def regist(request):
@@ -186,10 +193,27 @@ def aboutus(request):
         })
 
 def contact(request):
-    return render(request, 'contact.html')
+    if request.method == 'POST':
+        form = emainForm(request.POST) # form 包含提交的数据
+        print ('senet emainl to i@imcfy.com')
+        if form.is_valid():
+            contactNameField = form.cleaned_data['contactNameField']
+            contactEmailField = form.cleaned_data['contactEmailField']
+            contactMessageTextarea = form.cleaned_data['contactMessageTextarea']
+
+            send_mail(contactNameField, contactMessageTextarea, contactEmailField, ['i@imcfy.com'], fail_silently=False)
+    else:
+        return render(request, 'contact.html')
 
 def cloud9(request):
     return HttpResponseRedirect('http://211.149.199.241:8181/ide.html')
 
 def pyspider(request):
     return HttpResponseRedirect('http://211.149.199.241:5000/')
+
+
+
+
+
+
+
